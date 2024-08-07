@@ -179,6 +179,11 @@ public class employee extends javax.swing.JPanel {
                 "ID", "Employee Name", "T.P Number"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -383,6 +388,19 @@ public class employee extends javax.swing.JPanel {
         }      
         
     }//GEN-LAST:event_c_search_tblKeyReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // mouse clicked get data to textfeild
+        
+        int r = jTable1.getSelectedRow();
+        String id = jTable1.getValueAt(r, 0).toString();
+        String name = jTable1.getValueAt(r,1).toString();
+         String tp = jTable1.getValueAt(r,2 ).toString();
+         
+         c_search.setText(id);
+         c_name.setText(name);
+         c_tp.setText(tp);
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
