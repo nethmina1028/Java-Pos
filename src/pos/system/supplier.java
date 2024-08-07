@@ -4,6 +4,13 @@
  */
 package pos.system;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author nethm
@@ -15,6 +22,32 @@ public class supplier extends javax.swing.JPanel {
      */
     public supplier() {
         initComponents();
+        tb_load();
+    }
+    
+        public void tb_load(){   //table
+        
+        try{
+            DefaultTableModel dt = (DefaultTableModel) jTable_1.getModel();  //table
+            dt.setRowCount(0);
+            
+            Statement s =  db.mycon().createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM supplier");
+            
+            while(rs.next()){
+                
+                Vector v = new Vector();
+                v.add(rs.getString(1)); 
+                v.add(rs.getString(2)); 
+                v.add(rs.getString(3)); 
+                
+                dt.addRow(v);
+            }
+            
+        }catch(SQLException e){
+             
+            System.out.println(e);
+        }
     }
 
     /**
@@ -30,17 +63,17 @@ public class supplier extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        c_name = new javax.swing.JTextField();
+        c_tp = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        c_search = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -51,26 +84,46 @@ public class supplier extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("T.P Number:");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField1.setText("0");
+        c_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        c_name.setText("0");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField2.setText("0");
+        c_tp.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        c_tp.setText("0");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("Search");
         jButton2.setPreferredSize(new java.awt.Dimension(84, 32));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("Update");
         jButton3.setPreferredSize(new java.awt.Dimension(84, 32));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Delete");
         jButton4.setPreferredSize(new java.awt.Dimension(84, 32));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -85,8 +138,8 @@ public class supplier extends javax.swing.JPanel {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(c_tp, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -105,11 +158,11 @@ public class supplier extends javax.swing.JPanel {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_tp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +172,7 @@ public class supplier extends javax.swing.JPanel {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -130,15 +183,15 @@ public class supplier extends javax.swing.JPanel {
                 "ID", "Supplier Name", "T.P Number"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable_1);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Supplier Info:");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jTextField3.setText("0");
+        c_search.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        c_search.setText("0");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Serch ID:");
@@ -153,7 +206,7 @@ public class supplier extends javax.swing.JPanel {
                         .addGap(44, 44, 44)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(c_search, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)))
@@ -166,7 +219,7 @@ public class supplier extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(11, 11, 11))
         );
@@ -209,8 +262,87 @@ public class supplier extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String name = c_name.getText();
+        String tp = c_tp.getText();
+        
+        try{
+             Statement s = db.mycon().createStatement();  
+             s.executeUpdate("INSERT INTO supplier(supplier_Name,Tp_Number) VALUES('"+name+"','"+tp+"')");
+             
+             JOptionPane.showMessageDialog(null, "Data saved!");
+        }catch(SQLException e){
+            
+            System.out.println(e);
+            
+    }        
+            tb_load();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            // search here
+        
+        String search = c_search.getText();
+        
+        try{
+            Statement s= db.mycon().createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE sid = '"+search+"'");
+            
+            if(rs.next()){
+                c_name.setText(rs.getString("supplier_Name"));
+                c_tp.setText(rs.getString("Tp_Number"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e);
+            
+        }
+        
+          tb_load();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       // update here
+         
+        String name = c_name.getText();
+        String tp = c_tp.getText();
+        String id = c_search.getText();
+        try{
+            Statement s =db.mycon().createStatement();
+            s.executeUpdate("UPDATE supplier SET supplier_Name ='"+name+"',Tp_Number = '"+tp+"' WHERE sid= '"+id+"' ");
+            
+              JOptionPane.showMessageDialog(null, "Data updated!");
+        }catch(SQLException e){
+             System.out.println(e);
+        }
+          tb_load();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+         // delete here
+        
+        String id = c_search.getText();
+        
+        try{
+             Statement s = db.mycon().createStatement();
+             s.executeUpdate("DELETE FROM supplier WHERE sid='"+id+"' ");
+             
+             c_search.setText("");
+             c_name.setText("");
+             c_tp.setText("");
+  JOptionPane.showMessageDialog(null, "Data deleted!");
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        
+          tb_load();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField c_name;
+    private javax.swing.JTextField c_search;
+    private javax.swing.JTextField c_tp;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -223,9 +355,6 @@ public class supplier extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTable jTable_1;
     // End of variables declaration//GEN-END:variables
 }
