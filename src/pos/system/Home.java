@@ -34,6 +34,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        home_bnt_group.add(jToggleButton1);
         jToggleButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton1.setText("Supplier");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -42,6 +43,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_bnt_group.add(jToggleButton2);
         jToggleButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton2.setText("Customers");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +52,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_bnt_group.add(jToggleButton3);
         jToggleButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton3.setText("Product");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +61,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_bnt_group.add(jToggleButton4);
         jToggleButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton4.setText("Employee");
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +70,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_bnt_group.add(jToggleButton5);
         jToggleButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton5.setText("Invoice");
         jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -74,12 +79,20 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        home_bnt_group.add(jToggleButton6);
         jToggleButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton6.setText("Sales");
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
 
+        home_bnt_group.add(jToggleButton8);
         jToggleButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton8.setText("Reports");
 
+        home_bnt_group.add(jToggleButton10);
         jToggleButton10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton10.setText("Customers");
 
@@ -209,6 +222,13 @@ public class Home extends javax.swing.JFrame {
         product pro = new product();                //6
         jpload.jPanelLoader(panel_load, pro);
     }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+                 
+           sale sl = new sale();
+           jpload.jPanelLoader(panel_load,sl);
+           
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     /**
      * @param args the command line arguments
