@@ -69,6 +69,20 @@ public class sale extends javax.swing.JPanel {
                tot = qt * price;
                tot_price.setText(String.valueOf(tot));
     }
+    
+    public void cart_total(){
+                 
+              int numofrow = jTable1.getRowCount();
+              
+              double total = 0;
+              for (int i=0; i<numofrow; i++ ) {
+                   
+                  double value = Double.parseDouble(jTable1.getValueAt(i, 5).toString());
+                  total += value;
+              }
+            bill_tot.setText(Double.toString(total)) ; 
+        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,7 +115,7 @@ public class sale extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        bill_tot = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -259,9 +273,19 @@ public class sale extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Remove");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Remove All");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setText("Add to Cart");
@@ -309,9 +333,9 @@ public class sale extends javax.swing.JPanel {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Total Amount:");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel10.setText("00.00");
-        jLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        bill_tot.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        bill_tot.setText("00.00");
+        bill_tot.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -332,7 +356,7 @@ public class sale extends javax.swing.JPanel {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bill_tot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -342,7 +366,7 @@ public class sale extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(bill_tot))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -465,12 +489,36 @@ public class sale extends javax.swing.JPanel {
         v.add(tot_price.getText()); //get total price
         
         dt.addRow(v);
-        
+         cart_total();
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // selected remove
+        
+        try {
+            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            int rw = jTable1.getSelectedRow();
+         //   String id = dt.getValueAt(rw,0).toString();
+            dt.removeRow(rw);
+        } catch (Exception e) {
+        }
+        
+        cart_total();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // remove all
+        
+        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+        dt.setRowCount(0);
+        
+        cart_total();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bill_tot;
     private javax.swing.JLabel br_code;
     private javax.swing.JComboBox<String> com_cus;
     private javax.swing.JComboBox<String> com_pro;
@@ -480,7 +528,6 @@ public class sale extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
