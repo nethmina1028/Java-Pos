@@ -199,7 +199,11 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
-        // TODO add your handling code here:
+        // Invice load
+        
+         Invoice inv = new Invoice();                //
+         jpload.jPanelLoader(panel_load, inv);
+        
     }//GEN-LAST:event_jToggleButton5ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

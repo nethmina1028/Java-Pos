@@ -636,7 +636,7 @@ public class sale extends javax.swing.JPanel {
              String inv_id = inid.getText();
              String cname = com_cus.getSelectedItem().toString();
              String totqty = tot_qty.getText();
-             String tot_bil = tot_price.getText(); 
+             String tot_bil = bill_tot.getText(); 
              String blnc = balance.getText();
              
                 
