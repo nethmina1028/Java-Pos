@@ -71,7 +71,7 @@ public class sale extends javax.swing.JPanel {
                 inid.setText(rs.getString("val"));
             }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
         
            //plus new invoice

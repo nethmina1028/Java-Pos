@@ -91,6 +91,11 @@ public class Home extends javax.swing.JFrame {
         home_bnt_group.add(jToggleButton8);
         jToggleButton8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jToggleButton8.setText("Reports");
+        jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton8ActionPerformed(evt);
+            }
+        });
 
         home_bnt_group.add(jToggleButton10);
         jToggleButton10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -233,6 +238,12 @@ public class Home extends javax.swing.JFrame {
            jpload.jPanelLoader(panel_load,sl);
            
     }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
+       
+        reports rp = new reports();
+        jpload.jPanelLoader(panel_load,rp);
+    }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     /**
      * @param args the command line arguments
