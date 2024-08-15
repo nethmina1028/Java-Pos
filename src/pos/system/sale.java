@@ -673,7 +673,13 @@ public class sale extends javax.swing.JPanel {
             s.executeUpdate("UPDATE extra SET val='"+id+"' WHERE exid = 1 ");
             
         } catch (SQLException e) {
+            System.out.println(e);
         }
+        
+        // Print or view ireport bill via parameter
+        
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void com_cusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_cusActionPerformed
