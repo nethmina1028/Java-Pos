@@ -46,7 +46,7 @@
 		<expression><![CDATA[$F{cartid}]]></expression>
 		<groupHeader>
 			<band height="40">
-				<element kind="textField" uuid="d68ccb36-41b2-4e35-86c2-dc324562ca08" x="47" y="13" width="506" height="24" forecolor="#CC0000" bold="true" style="SubTitle">
+				<element kind="textField" uuid="d68ccb36-41b2-4e35-86c2-dc324562ca08" x="47" y="13" width="133" height="24" forecolor="#CC0000" bold="true" style="SubTitle">
 					<expression><![CDATA[$F{cartid}]]></expression>
 				</element>
 				<element kind="rectangle" uuid="b9a66a94-77af-4a13-8b04-f7bca7e60ad1" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>

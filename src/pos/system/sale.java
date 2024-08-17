@@ -18,6 +18,8 @@ public class sale extends javax.swing.JPanel {
    public static String barcode_c = "0" ;
    public static String cus_id = "0" ;
    
+   public Double Stcok_qty = 0.0 ;
+   
     public sale() {
         initComponents();
         data_load();
@@ -127,6 +129,52 @@ public class sale extends javax.swing.JPanel {
         due = paid - tot;
         balance.setText(String.valueOf(due));
     }
+       //stock updaing
+    public void stckup(){
+          //get all table product id and sell qty
+        DefaultTableModel dt =(DefaultTableModel) jTable1.getModel();
+        int rc =dt.getRowCount();
+        
+        for(int i = 0;i<rc;i++){
+           
+            String bcode = dt.getValueAt(i,2).toString();  // id or barcode
+            String sell_qty = dt.getValueAt(i,3).toString(); //id or barcode
+            
+            System.out.println(bcode);
+            System.out.println(sell_qty);
+            
+            try {
+                Statement s =db.mycon().createStatement();
+                ResultSet rs = s.executeQuery("SELECT QTY From product WHERE Bar_code = '"+bcode+"'");
+                
+                if(rs.next()){
+                    Stcok_qty = Double.valueOf(rs.getString("Qty"));
+                }
+                
+            } catch (Exception e) {
+                
+                System.out.println(e);
+            }
+            
+            Double st_qty = Stcok_qty ;
+            Double Sel_qty = Double.valueOf(sell_qty);
+            
+            Double new_qty = st_qty - Sel_qty;  
+            
+            String nqty = String.valueOf(new_qty);
+            
+             try {
+                Statement ss =db.mycon().createStatement();
+                ss.executeUpdate("UPDATE product SET Qty = '"+nqty+"' WHERE Bar_code = '"+bcode+"' ");
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            
+        }
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -147,6 +195,8 @@ public class sale extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         tot_price = new javax.swing.JLabel();
         br_code = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        l_stqty = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -245,6 +295,12 @@ public class sale extends javax.swing.JPanel {
         br_code.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         br_code.setText("Barcode");
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("Stock Qty");
+
+        l_stqty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        l_stqty.setText("0");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -259,9 +315,15 @@ public class sale extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(38, 38, 38)
+                        .addComponent(l_stqty))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -292,7 +354,10 @@ public class sale extends javax.swing.JPanel {
                         .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
                         .addComponent(u_price)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(l_stqty)))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -533,10 +598,11 @@ public class sale extends javax.swing.JPanel {
         
         try {
             Statement s = db.mycon().createStatement();
-            ResultSet rs = s.executeQuery("SELECT Bar_code,Price FROM product WHERE Product_Name = '"+name+"' ");
+            ResultSet rs = s.executeQuery("SELECT Bar_code,Price,Qty FROM product WHERE Product_Name = '"+name+"' ");
                 if(rs.next()){
                     u_price.setText(rs.getString("Price"));
                     br_code.setText (rs.getString("Bar_code"));
+                    l_stqty.setText(rs.getString("Qty"));
                 }
                 
             pro_tot_cal();
@@ -680,6 +746,10 @@ public class sale extends javax.swing.JPanel {
         
         
         
+        
+        //
+        stckup();  // Sell qty update
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void com_cusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_com_cusActionPerformed
@@ -714,6 +784,7 @@ public class sale extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -732,6 +803,7 @@ public class sale extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel l_stqty;
     private javax.swing.JTextField p_qty;
     private javax.swing.JTextField paid_amt;
     private javax.swing.JLabel tot_price;
