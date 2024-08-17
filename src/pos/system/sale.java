@@ -621,7 +621,12 @@ public class sale extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // add  cart to  product details
         
-        DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+        Double sell_qty = Double.valueOf(p_qty.getText());
+        Double stk_qty = Double.valueOf(l_stqty.getText());
+        
+        if(sell_qty < stk_qty){
+            
+             DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
         Vector v = new Vector();
         
         v.add(inid.getText()); //invoice id
@@ -634,6 +639,14 @@ public class sale extends javax.swing.JPanel {
         dt.addRow(v);
          cart_total();
         tot();
+            
+        }else{
+            JOptionPane.showMessageDialog(balance,"Stock Have"+stk_qty+"Qty only");
+            
+        }
+        
+        
+       
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
